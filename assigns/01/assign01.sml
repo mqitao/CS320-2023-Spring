@@ -3,7 +3,17 @@
 Assign01: Onward!
 *)
 (* ****** ****** *)
+(*
 use "./assign01-lib.sml";
+*)
+(* ****** ****** *)
+val list_append = op@;
+val list_reverse = List.rev;
+(* ****** ****** *)
+
+exception XlistConsMatch;
+exception XlistSubscript;
+
 (* ****** ****** *)
 
 datatype 'a xlist =
@@ -15,7 +25,7 @@ xlist_snoc of ('a xlist * 'a)
 |
 xlist_append of ('a xlist * 'a xlist)
 |
-xlist_reverse of ('a xlist)
+xlist_reverse of ('a xlist);
 
 (* ****** ****** *)
 
@@ -31,7 +41,7 @@ xlist_snoc(xs, x1) => list_of_xlist(xs) @ [x1]
 xlist_append(xs, ys) => list_of_xlist(xs) @ list_of_xlist(ys)
 |
 xlist_reverse(xs) => list_reverse(list_of_xlist(xs))
-)
+);
 
 (* ****** ****** *)
 
@@ -40,11 +50,12 @@ xlist_reverse(xs) => list_reverse(list_of_xlist(xs))
 Assign01-01: 10 points
 //
 Please implement a function
-that computes the length of an xlist DIRECTLY:
+that computes the size of an xlist DIRECTLY:
 //
-fun xlist_len(xs: 'a xlist): int
+fun xlist_size(xs: 'a xlist): int
 //
 That is, you should NOT convert xlist into list
+(*<<<<<<< HEAD*)
 and then compute the length of the converted list
 
 fun 
@@ -62,6 +73,9 @@ xlist_append(xs, ys) => xlist_size(xs) + xlist_size(ys)
 xlist_reverse(xs) => xlist_size(xs)
 )
 
+=======
+and then compute the size of the converted list
+>>>>>>> upstream/main
 //
 *)
 
@@ -77,10 +91,10 @@ that does subscripting on xlist DIRECTLY:
 fun xlist_sub(xs: 'a xlist, i0: int): 'a
 //
 If 'i0' is an illegal index, then xlist_sub
-should raise the Subscript exception.
+should raise the XlistSubscript exception.
 //
-You should NOT convert xlist into list
-and then compute the length of the converted list
+You should NOT convert xlist into list and
+then do subscripting.
 //
 
  fun xlist_sub(xs:'a xlist, i0: int): 'a=
@@ -115,26 +129,23 @@ fun xlist_remove_reverse(xs: 'a xlist): 'a xlist
 //
 In particular, your implementation should guarantee:
 1. 'xs' and 'ys' represent the same list
-2. 'ys' does NOT make any use of 'mylist_reverse'
-3. 'xs' and 'ys' use the same number of 'mylist_append'
+2. 'ys' does NOT make any use of 'xlist_reverse'
+3. 'xs' and 'ys' use the same number of 'xlist_append'
 //
 
-fun xlist_remove_aid(xs:'a xlist): 'a xlist =
+fun xlist_remove_reverse(xs:'a xlist): 'a xlist =
 (
 case xs of
 xlist_nil => xlist_nil
 |
-xlist_cons(x1, xs) => xlist_cons(x1, xlist_remove_aid(xs))
+xlist_cons(x1, xs) => xlist_cons(x1, xlist_remove_reverse(xs))
 |
-xlist_snoc(xs, x1) => xlist_snoc(xlist_remove_aid(xs), x1)
+xlist_snoc(xs, x1) => xlist_snoc(xlist_remove_reverse(xs), x1)
 |
-xlist_append(xs, ys) => xlist_append(xlist_remove_aid(xs), xlist_remove_aid(ys))
+xlist_append(xs, ys) => xlist_append(xlist_remove_reverse(xs), xlist_remove_reverse(ys))
 |
-xlist_reverse(xs) => xlist_remove_aid(xs)
+xlist_reverse(xs) => xlist_remove_reverse(xs)
 );
-
-fun xlist_remove_reverse(xs:'a xlist): 'a xlist =
-	val xs = xlist_remove_aid(xs);
 
 *)
   
@@ -142,13 +153,22 @@ fun xlist_remove_reverse(xs:'a xlist): 'a xlist =
 
 (*
 //
-Assign01-04: 20 points
+Assign01-04: 10 points
 //
-Please implement a function that checks DIRECTLY
-if a given int xlist is sorted/ordered ascendingly:
+Please recall the following question in Assign00:
+Assign00-04: 10 points
+Please implement a function that converts a given
+string to an integer:
+fun str2int(cs: string): int
+In particular, it is expected that str2int(int2str(x)) = x
 //
-fun xlist_sortedq(xs: int xlist): bool
+This time you are asked to implement the following
+function that only turns a legal representation of an integer
+into an integer. By a legal representation of an integer, we
+mean a string consisting of a non-empty sequence of digits (where
+the digit '0' can be a leading digit).
 //
+(*<<<<<<< HEAD
 You should NOT convert xlist into list
 and then check whether the converted list is sorted.
 
@@ -218,9 +238,13 @@ permute_next_exn(xs: int list): int list
 //
 fun
 permute_next_opt(xs: int list): (int list) optn
+=======
+fun str2int_opt(cs: string): int option
+>>>>>>> upstream/main
 //
 *)
 
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-assign01.sml] *)
+*)
