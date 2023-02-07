@@ -12,7 +12,16 @@ xlist_append of ('a xlist * 'a xlist)
 xlist_reverse of ('a xlist)
 
 (* ****** ****** *)
+(*
+HX-2023-01-31: Mutual recursion
+*)
+(* ****** ****** *)
 
+(*
+HX-2023-01-31:
+Finding the first element
+(that is, head) of a given xlist
+*)
 fun
 xlist_head
 (xs: 'a xlist): 'a option =
@@ -39,6 +48,11 @@ end
 xlist_reverse(xs) => xlist_last(xs)
 )
 
+(*
+HX-2023-01-31:
+Finding the last element
+of a given xlist
+*)
 and
 xlist_last
 (xs: 'a xlist): 'a option =
@@ -57,13 +71,34 @@ xlist_snoc(xs, x1) => SOME(x1)
 |
 xlist_append(xs, ys) =>
 let
-val res = xlist_head(ys)
+val res = xlist_last(ys)
 in
   case res of
-  NONE => xlist_head(xs) | SOME _ => res
+  NONE => xlist_last(xs) | SOME _ => res
 end
 |
 xlist_reverse(xs) => xlist_head(xs)
+)
+
+(* ****** ****** *)
+
+fun
+xlist_do_reverse
+(xs: 'a xlist): 'a xlist =
+(
+case xs of
+xlist_nil => xlist_nil
+|
+xlist_reverse(xs) => xs
+|
+xlist_cons(x1, xs) =>
+xlist_snoc(xlist_do_reverse(xs), x1)
+|
+xlist_snoc(xs, x1) =>
+xlist_cons(x1, xlist_do_reverse(xs))
+|
+xlist_append(xs, ys) =>
+xlist_append(xlist_do_reverse(ys), xlist_do_reverse(xs))
 )
 
 (* ****** ****** *)
