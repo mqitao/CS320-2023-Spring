@@ -172,12 +172,42 @@ fun card5_fullhouse(cs: card5): bool
 //
 *)
 
-fun
-card5_fullhouse(cs: card5): bool =
+(*fun
+card5_fullhouse(cs: card5): bool =*)
 (*
 Please Give your implementation as follows:
 *)
 
 (* ****** ****** *)
 
+fun rank_2int(cs: card5): int5 = 
+	let 
+		val (c1, c2, c3, c4, c5) = cs
+	
+		val (c1_suit, c1_rank) = c1
+		val (c2_suit, c2_rank) = c2
+		val (c3_suit, c3_rank) = c3
+		val (c4_suit, c4_rank) = c4
+		val (c5_suit, c5_rank) = c5
+	in
+		(rank2int(c1_rank), rank2int(c2_rank), rank2int(c3_rank), rank2int(c4_rank), rank2int(c5_rank))
+	end;
+
+
+fun check_fullhosue_1(xs: int5): bool =
+	let val (i1, i2, i3, i4, i5) = xs
+	in
+		((i1=i2)=(i2=i3)=(i4=i5))
+	end;
+		
+fun check_fullhosue_2(xs: int5): bool =
+	let val (i1, i2, i3, i4, i5) = xs
+	in
+		((i1=i2)=(i3=i4)=(i4=i5))
+	end;
+
+fun card5_fullhouse(cs: card5): bool =
+	let val xs = int5_sort(rank_2int(cs))
+	in check_fullhouse_2(xs) 
+	end;
 (* end of [CS320-2023-Spring-quiz01-card5_fullhouse.sml] *)
