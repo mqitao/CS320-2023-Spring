@@ -191,23 +191,23 @@ fun rank_2int(cs: card5): int5 =
 		val (c5_suit, c5_rank) = c5
 	in
 		(rank2int(c1_rank), rank2int(c2_rank), rank2int(c3_rank), rank2int(c4_rank), rank2int(c5_rank))
-	end;
+	end
 
 
-fun check_fullhosue_1(xs: int5): bool =
+fun check_fullhouse_1(xs: int5): int =
 	let val (i1, i2, i3, i4, i5) = xs
 	in
-		((i1=i2)=(i2=i3)=(i4=i5))
-	end;
+		(case ((i1 - i2 + i2 - i3 + i4 - i5) = 0) of true => 1 | false => 0)
+	end
 		
-fun check_fullhosue_2(xs: int5): bool =
+fun check_fullhouse_2(xs: int5): int =
 	let val (i1, i2, i3, i4, i5) = xs
 	in
-		((i1=i2)=(i3=i4)=(i4=i5))
-	end;
+		(case ((i1 - i2 + i3 - i4 + i4 - i5) = 0) of true => 1 | false => 0)
+	end
 
 fun card5_fullhouse(cs: card5): bool =
 	let val xs = int5_sort(rank_2int(cs))
-	in check_fullhouse_2(xs) 
-	end;
+	in  check_fullhouse_1(xs) + check_fullhouse_2(xs) > 0
+	end
 (* end of [CS320-2023-Spring-quiz01-card5_fullhouse.sml] *)

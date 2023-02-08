@@ -49,25 +49,35 @@ int5_sort_nr(xs) for every 5-tuple xs of the type int5.
 *)
 (* ****** ****** *)
 
-fun
-int5_sort_nr(xs: int5): int5 =
-val Lx =[]
-val Ly = []	
-fun int5_sort(xs:int, zs: int): int5 =
-	if xs > zs then Lx @ xs
-	else Ly @ xs
+fun nr_sort(xs:int, zs: int): int*int=
+	if xs < zs then (xs, zs)
+	else (zs, xs);
 
 fun int5_sort_nr(xs: int5): int5 =
 	let 
 	val (x1, x2, x3, x4, x5) = xs	
-	int5_sort(x1, x3)
-	int5_sort(x2, x3)
-	int5_sort(x4, x3)
-	int5_sort(x5, s3)
-	
-	val y = Lx @ [x3] @ Ly
 
-	in 
+	val (x1, x2) = 	nr_sort(x1, x2)
+	val (x2, x3) = 	nr_sort(x2, x3)
+	val (x3, x4) = 	nr_sort(x3, x4)
+	val (x4, x5) = 	nr_sort(x4, x5)
+
+	val (x2, x3) = 	nr_sort(x2, x3)
+	val (x3, x4) = 	nr_sort(x3, x4)
+	val (x4, x5) = 	nr_sort(x4, x5)
+	val (x1, x2) = nr_sort(x1, x2)
+	
+	val (x1, x2) = 	nr_sort(x1, x2)
+	val (x2, x3) = 	nr_sort(x2, x3)
+	val (x3, x4) = 	nr_sort(x3, x4)
+	val (x4, x5) = 	nr_sort(x4, x5)
+
+	val (x1, x2) = 	nr_sort(x1, x2)
+	val (x2, x3) = 	nr_sort(x2, x3)
+	val (x3, x4) = 	nr_sort(x3, x4)
+	val (x4, x5) = 	nr_sort(x4, x5)
+
+	in (x1, x2, x3, x4, x5)
 	end;
 (*
 Please Give your implementation as follows:
