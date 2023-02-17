@@ -1,6 +1,5 @@
 (* ****** ****** *)
-use (* for class library *)
-"./../../../mysmlib/mysmlib-cls.sml";
+use "./../../../mysmlib/mysmlib-cls.sml";
 (* ****** ****** *)
 use "./../MySolution/assign03-04.sml";
 (* ****** ****** *)

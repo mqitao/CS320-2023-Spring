@@ -18,7 +18,7 @@ list_tabulate(n: int, f: int -> 'a): 'a list
 fun list_tabulate(n:int, f:int -> 'a): 'a list=
 	( case n of 0 => nil
 	| 1 => [f(0)]
-	| n => list_tabulate(n-1,f) @ [f(n-1)]);
+	| n => list_tabulate(n-1,f) @ [f(n-1)])
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-assign03-03.sml] *)

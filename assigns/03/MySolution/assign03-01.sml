@@ -29,7 +29,7 @@ fun find_root(f0:int -> int): int =
 			)   
 		)
 	in recur_root(f0, n)
-	end;
+	end
 
 (* ****** ****** *)
 

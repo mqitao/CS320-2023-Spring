@@ -27,7 +27,7 @@ fun list_range(start: int, finish: int): int list=
 			else [str] @ list_range(str+1, finish)	  
 
 	in list_recur(start, finish)
-	end;	
+	end	
 
 (* ****** ****** *)
 
