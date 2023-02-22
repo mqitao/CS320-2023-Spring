@@ -25,3 +25,6 @@ list_reduce_left
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-lectures-list_reduce.sml] *)
+
+
+
