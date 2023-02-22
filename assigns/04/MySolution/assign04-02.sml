@@ -37,6 +37,9 @@ list_subsets =
 fn(xs: 'a list) => ...
 *)
 
+fun helper_sub r0 xs = list_reduce_left(xs, r0, fn(r, x) =>  r @ list_map(r, fn(xs) => x::xs ));
+val list_subsets = fn(xs: 'a list) => helper_sub [[]] xs;
+
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-assign04-02.sml] *)

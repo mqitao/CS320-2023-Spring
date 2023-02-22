@@ -40,6 +40,14 @@ forall_to_exists
 (forall: ('xs,'x0)forall_t): ('xs,'x0)exists_t = ...
 *)
 
+fun forall_to_exists(forall: ('xs, 'x0)forall_t): ('xs, 'x0)exists_t =
+	fn(xs: 'xs, test: 'x0 -> bool) =>
+	let exception True
+	in
+	forall(xs, fn(x0: 'x0) => if test(x0) then raise True else false)
+	handle True(*void*) => (true)	
+	end;
+
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-assign04-03.sml] *)

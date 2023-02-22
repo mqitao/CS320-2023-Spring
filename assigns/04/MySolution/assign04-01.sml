@@ -29,4 +29,12 @@ end
 
 (* ****** ****** *)
 
+fun helper n0 i0 = 
+	if i0 > 1 then (if i0 >= n0 then true 
+		else not (n0 mod i0 = 0) )
+	else true;
+
+
+val isPrime = fn(n0:int) => if n0 >= 2 then int1_forall(n0, helper(n0)) else false;
+
 (* end of [CS320-2023-Spring-assign04-01.sml] *)
