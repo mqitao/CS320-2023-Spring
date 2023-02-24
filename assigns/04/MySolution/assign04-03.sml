@@ -42,11 +42,13 @@ forall_to_exists
 
 fun forall_to_exists(forall: ('xs, 'x0)forall_t): ('xs, 'x0)exists_t =
 	fn(xs: 'xs, test: 'x0 -> bool) =>
-	let exception True
+	let 
+	val helper = forall(xs, fn(x0: 'x0) => if test(x0) then false else true) 
 	in
-	forall(xs, fn(x0: 'x0) => if test(x0) then raise True else false)
-	handle True(*void*) => (true)	
+	forall(xs, fn(x0) => not helper)
+	
 	end;
+
 
 (* ****** ****** *)
 
