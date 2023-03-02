@@ -34,5 +34,18 @@ list_nchoose2(xs: int list): (int * int) list = ...
 *)
 
 (* ****** ****** *)
+fun list_nchoose(xs: int list): (int * int) list list =
+    let 
+    val ys = xs
+    val return =
+    list_map(xs, fn(x1) => list_reduce_left
+	(ys, [], fn(r0, xi) => if xi > x1 then r0 @ [(x1, xi)] else r0))
+    in return
+    end;
+
+fun
+list_nchoose2(xs: int list): (int * int) list =
+   list_reduce_left(list_nchoose(xs), [], fn(r, x)=> if r = nil then r else r @ x)    
+
 
 (* end of [CS320-2023-Spring-midterm1-list_nchoose2.sml] *)

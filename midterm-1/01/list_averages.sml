@@ -35,5 +35,15 @@ fun
 list_averages(xs: real list): real list = ...
 *)
 (* ****** ****** *)
+fun
+list_averages(xs: real list): real list =
+    avg_helper(xs, hd(xs), 1.0)
+
+fun avg_helper(xs:real list, acc:real, divs:real): real list=
+    (case xs of nil => nil
+    |x1::xs => (
+        case xs of nil => [acc/divs]
+        | _ => [acc / divs] @ avg_helper(xs, acc+hd(xs), divs+1.0)
+    ));
 
 (* end of [CS320-2023-Spring-midterm1-list_averages.sml] *)
