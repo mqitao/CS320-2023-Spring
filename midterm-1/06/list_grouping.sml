@@ -23,10 +23,14 @@ two seconds)
 *)
 (* ****** ****** *)
 
-(*
+
+
 fun
-list_grouping(xs: int list): (int * int) list = ...
-*)
+list_grouping(xs: int list): (int * int) list = 
+    list_reduce_left(xs, [], fn(r,x) =>
+	if not(list_forall(r, fn(xi) => #2 xi <> x)) 
+	then list_map(r, fn(x1) => if #2 x1 = x then (#1 x1 + 1, #2 x1) else x1)	
+	else r @ [(1, x)]);
 
 (* ****** ****** *)
 

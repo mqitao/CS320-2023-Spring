@@ -61,7 +61,17 @@ the previous.
 fun
 magic_triangle (n : int) : int list list = ...
 *)
+fun
+magic_triangle (n : int) : int list list =
+  let val tri = 
+  int1_foldleft(n, [[1]], fn(a, num) => [[1] @ helper(hd(a))] @ a) 
+  in list_reverse(tri)
+  end
 
+fun helper(xs: int list): int list =
+	(case xs of nil => nil
+	|x1::xs => (case xs of nil => [x1] | _ => [x1+ hd(xs)] @ helper(xs))
+	);
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-midterm1-magic_triangle.sml] *)

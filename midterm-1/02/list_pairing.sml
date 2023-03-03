@@ -33,13 +33,15 @@ list_pairing
 (* ****** ****** *)
 fun
 list_pairing(xs: 'a list): ('a * 'a) list * 'a option =
-	let val rev = list_reverse(xs)
-	val mid = list_length(xs) div 2	
+	let 
+    val rev = list_reverse(xs)
+    val len = list_length(xs)
+	val mid = len div 2	
 	in
-	(case list_length(xs) mod 2 = 0 => (pair_aid(xs, rev, list_length(xs)), NONE)
-	| _ => (pair_aid(xs, rev, list_length(xs)), SOME(list_sub(xs, mid)))
-
-)
+	(case len mod 2 = 0 of  true => (pair_aid(xs, rev, mid), NONE)
+	| false => (pair_aid(xs, rev, mid), SOME(list_sub(xs, mid)))
+    )
+    end
 
 fun 
 pair_aid(xs: 'a list, ys: 'a list, itr: int): ('a * 'a) list =

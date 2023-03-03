@@ -107,10 +107,13 @@ andalso bintr_size(tl) = bintr_size(tr)
 *)
 (* ****** ****** *)
 
-(*
+
 val
-bintr_balanced_nonrec = fn(t0: 'a bintr) => ...
-*)
+bintr_balanced_nonrec = fn(t0: 'a bintr) => 
+  let val is_bal=
+  bintr_fold( t0, fn _ => 1, fn(tl, tr) => if tl = tr then tl+tr else 0)
+  in is_bal > 0
+  end;
 
 (* ****** ****** *)
 
