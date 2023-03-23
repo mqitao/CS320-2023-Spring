@@ -161,6 +161,8 @@ case xs of
 
 (* ****** ****** *)
 
+(* 
+*)
 fun
 list_reduce_left
 ( xs: 'a list
@@ -339,11 +341,12 @@ foreach_to_foldleft
 : ('xs * 'r0 * ('r0*'x0 -> 'r0)) -> 'r0 =
 fn(xs, r0, fopr) =>
 let
-val res = ref(r0)
+val res = ref(r0) (*you can only update references since all other vars are fixed in sml*)
 in
 foreach
 ( xs
-, fn(x0) => res := fopr(!res, x0)); !res
+, fn(x0) => res := fopr(!res, x0)); !res (*since we are only updating res, only unit
+  will be returned to the terminal, and thus foreach condition is sataisfied*)
 end (* end of [foreach_to_foldleft]: let *)
 
 (* ****** ****** *)
