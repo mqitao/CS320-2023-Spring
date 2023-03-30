@@ -6,6 +6,8 @@ sys.path.append('./../../MySolution/Python')
 from assign06_03 import *
 ######################################################
 def nqueen(bd):
+    """return the number of queens
+    currently on the board"""    
     res = 0
     for j0 in bd:
         if j0 <= 0:
@@ -13,12 +15,23 @@ def nqueen(bd):
         else:
             res = res + 1
     return res
+
 def board_safety_all(bd):
+    """
+    determine if every queen on the board
+    is safe 
+    """
     return \
         int1_forall\
         (nqueen(bd), \
          lambda i0: board_safety_one(bd, i0))
+
 def board_safety_one(bd, i0):
+    """
+    combinator for the prior function, accepts a board
+    and an i0 value, checks whether every queen before
+    the queen at i0 is safe in relation to i0   
+    """
     def helper(j0):
         pi = bd[i0]
         pj = bd[j0]

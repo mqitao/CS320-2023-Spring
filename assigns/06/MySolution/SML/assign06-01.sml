@@ -19,9 +19,16 @@ And so on, and so forth
 
 (* ****** ****** *)
 
-(*
-val the_ln2_stream: real stream = fn() => ...
-*)
+val the_ln2_stream: real stream = fn() => 
+	let
+	fun helper(i, k): real strcon =
+		if k mod 2 = 0 then 
+		strcon_cons (i, fn () => helper(i - real 1 / real k, k+1) )
+		else 
+		strcon_cons (i, fn () => helper(i + real 1 / real k, k+1) ) 
+	in helper(1.0, 2)
+	end;
+
 
 (* ****** ****** *)
 

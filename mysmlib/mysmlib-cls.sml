@@ -732,6 +732,7 @@ datatype 'a strcon =
 (* ****** ****** *)
 
 type 'a stream = (unit -> 'a strcon)
+(*'a stream = (unit -> ('a * (unit -> 'a strcon)) ) *)
 
 (* ****** ****** *)
 
