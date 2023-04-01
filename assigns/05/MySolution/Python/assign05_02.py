@@ -9,6 +9,16 @@ from mypylib_cls import *
 # HX-2023-03-14: 20 points
 # Please *translate* into Python the posted solution
 # on Piazza for word_neighbors (which is writtend in SML)
+
+import nltk
+nltk.download('words')
+from nltk.corpus import words
+################################################
+setofwords = set(words.words())
+################################################
+def word_is_legal(word):
+    return word in setofwords
+################################################
 #
 def string_length(word:str):
     return len(word)

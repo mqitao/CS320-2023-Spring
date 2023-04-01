@@ -67,8 +67,8 @@ assert(board_safety_all(cxs.cons1))
 assert(stream_forall\
        (theNQueenSols_10, \
         lambda bd: nqueen(bd)==10 and board_safety_all(bd)))
-# stream_iforeach\
-#    (theNQueenSols_10, lambda i, bd: print("solution(",i+1,") =", bd))
+stream_iforeach\
+    (theNQueenSols_10, lambda i, bd: print("solution(",i+1,") =", bd))
 ######################################################
 print("Assign06-03-test passed!")
 ######################################################
