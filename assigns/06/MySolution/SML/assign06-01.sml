@@ -29,7 +29,29 @@ val the_ln2_stream: real stream = fn() =>
 	in helper(1.0, 2)
 	end;
 
-
+fun
+stream_ziplst(xss: 'a stream list): 'a list stream =
+fn() =>
+let
+val helper1 = fn(ix) =>
+	case ix() of strcon_nil => nil
+	| strcon_cons(hds, tls) => [hds] 
+val helper2 = fn(ix) =>
+	case ix() of strcon_nil => nil
+	| strcon_cons(hds, tls) => [tls]
+in
+	let
+	val str_hd = fn(xs) => foreach_to_foldleft(list_foreach)
+	(xs, [], fn(r0, x1) => r0 @ helper1(x1))
+	val str_tl = fn(xs) => foreach_to_foldleft(list_foreach)
+	(xs, [], fn(r0, x1) => r0 @ helper2(x1)) 
+	
+	fun helper3(xs, fopr, fopr2) = 
+	strcon_cons(fopr(xs), fn() => helper3(fopr2(xs),fopr,fopr2))
+	in
+	helper3(xss, str_hd, str_tl)
+	end
+end;
 (* ****** ****** *)
 
 (* end of [CS320-2023-Spring-assign06-01.sml] *)

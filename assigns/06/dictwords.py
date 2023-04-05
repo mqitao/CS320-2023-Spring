@@ -1,6 +1,6 @@
 ################################################
 import sys
-sys.path.append('./../../../../mypylib')
+sys.path.append('../../mypylib')
 from mypylib_cls import *
 
 import nltk
