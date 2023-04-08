@@ -94,3 +94,13 @@ in
 	helper3(xss, str_hd, str_tl, test)
 	end
 end;
+
+
+fun power_tri(x:int):int stream =
+fn() =>
+let
+fun helper(i0:int): int strcon=
+	strcon_cons(i0*i0*i0, fn() => helper(i0+1)) 
+in
+helper(x)	
+end; 

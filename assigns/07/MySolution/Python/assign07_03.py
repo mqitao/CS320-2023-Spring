@@ -31,12 +31,67 @@ http://ats-lang.github.io/EXAMPLE/BUCS320/Doublets/Doublets.html
 ######
 """
 ####################################################
-def doublet_bfs_test(w1, w2):
-    """
-    Given two words w1 and w2, this function should
-    return None if w1 and w2 do not for a doublet. Otherwise
-    it returns a path connecting w1 and w2 that attests to the
-    two words forming a doublet.
-    """
-    raise NotImplementedError
+def test_goal_helper(word, goal, res):
+    if list(word)[-1] == goal:
+        res.append(word)
+        return False
+    else:
+        return True
+    
+def fn_child(word): 
+	pylists = fnlist_pylistize(word_neighbors(word))	
+	return pylist_filter_pylist(pylists, lambda i: word_is_legal(i))
+
+def doublet_stream_from(word):
+
+	visited = {word}
+	q = queue.Queue()
+	q.put([word])
+
+	def bfs_helper(que, visited, curr_u, u_child):
+		if que.empty():
+			return strcon_nil()
+		
+		elif u_child != []:
+			rtn_list = curr_u.copy()
+			rtn_list.append(u_child.pop())
+			
+			return strcon_cons(tuple(rtn_list), \
+				lambda : bfs_helper(que, visited, curr_u, u_child))	
+			
+		else:
+			u = q.get()
+		
+			child = fn_child(u[-1])
+			for c in child:
+				if c not in visited:
+					visited.add(c)
+					que.put( u + [c] )
+				u_child.append(c)
+
+			curr_u = u 	
+			r_child = [i for i in reversed(u_child)]
+			
+			rtn_list = curr_u.copy()
+			if len(curr_u) > 1: 
+				rtn_list.append(r_child.pop())             
+         
+			return strcon_cons(tuple(rtn_list), \
+	                      lambda : bfs_helper(que, visited, \
+				curr_u, r_child))		 
+
+	return lambda : bfs_helper(q, visited, [], [])    
+
+def doublet_bfs_test(word, goal):
+	if word_is_legal(word) and \
+	word_is_legal(goal) and \
+	len(word) == len(goal):
+		res = []
+		stream_fxs = doublet_stream_from(word)
+		stream_forall(stream_fxs, \
+			lambda x: test_goal_helper(x, goal, res))
+		return res[-1]
+                    
+	else:
+		return None
 ####################################################
