@@ -7,14 +7,35 @@ You are required to implement the following function
 generator_merge2 WITHOUT using streams. A solution that
 uses streams is disqualified.
 """
-def generator_merge2(gen1, gen2, lte3):
-    """
-    Given two generators gen1 and gen2 and a comparison
-    function lte3, the function generator_merge2 returns
-    another generator that merges the elements produced by
-    gen1 and gen2 according to the order specified by lte3.
-    The function generator_merge2 is expected to work correctly
-    for both finite and infinite generators.
-    """
-    raise NotImplementedError
+
 ####################################################
+def generator_merge2(gen1, gen2, ite3):
+    def peek(generate):
+        try:
+            test_case = next(generate)
+        except StopIteration:
+            return None
+        return test_case 
+    
+    def gen_comb(xs1, xs2, y):
+        if y > 0:
+            yield xs1
+            y = 0
+        yield from xs2
+        
+    while True:
+        res1 = peek(gen1)
+        
+        if res1 is None:
+            yield peek(gen2)
+        else:
+            res2 = peek(gen2)
+            if res2 is None:
+                yield res1
+            else:
+                if ite3(res1, res2):
+                    gen2 = gen_comb(res2, gen2, 2)
+                    yield res1
+                else:
+                    gen1 = gen_comb(res1, gen1, 2)
+                    yield res2

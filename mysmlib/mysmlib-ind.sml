@@ -104,3 +104,30 @@ fun helper(i0:int): int strcon=
 in
 helper(x)	
 end; 
+
+
+fun permute2(xs:'a list): 'a list stream =
+case xs of xh::xt => 
+let 
+val fn_chd = permute2(xt)
+in 
+
+case fn_chd() of strcon_nil => list_streamize([[xh]])
+| _ =>
+let 
+
+val cur_stream =
+stream_make_map(fn_chd, fn(x1) => (interleave xh x1) )
+
+fun get_stream(in_s) =
+case in_s() of strcon_cons(head, tail) =>
+stream_append(list_streamize(head), get_stream(tail))
+| strcon_nil => (fn() => strcon_nil)
+
+in
+get_stream(cur_stream)
+
+end
+
+| nil =>  stream_nil
+end;
