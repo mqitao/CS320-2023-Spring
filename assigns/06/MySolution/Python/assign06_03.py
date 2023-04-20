@@ -68,8 +68,10 @@ def solve_N_queen_puzzle(N):
 			p = N - len([i for i in u if i == 0])
 			if p < N:		
 				child = board_extend(u, p, N)
-				for v in reversed(child):   
-					stk_queue.put(v)
+				for v in reversed(child):
+					if tuple(v) not in visited:
+						stk_queue.put(v)
+						visited.add(tuple(v))
     		
 			if u[-1] != 0:
 				return \

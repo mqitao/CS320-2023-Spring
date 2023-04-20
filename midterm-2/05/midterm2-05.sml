@@ -25,6 +25,31 @@ For instance, [1,2,3,4] does not capture '231'
 fun
 perm_capture_231(xs: int list): bool = ...
 *)
+fun
+perm_capture_231(xs: int list): bool =
+let
+
+fun
+helper1(fxs: int list, x_int:int list): int list =
+list_foldleft(fxs, x_int, fn(r0, x0) => 
+if list_length(r0) = 1 andalso x0 > hd(r0) then r0 @ [x0]
+else 
+if list_length(r0) = 2 andalso x0 < hd(r0) then r0 @ [x0]
+else r0)
+
+fun
+helper2(fx: int list): bool =
+case list_length(fx) < 3 of true => false 
+| false => 
+if list_length(helper1( tl(fx), [hd(fx)] )) >= 3 then true
+else helper2(tl(fx)) 
+in
+helper2(xs)
+
+end
+
+
+
 
 (* ****** ****** *)
 
