@@ -28,5 +28,22 @@ wordle_hint(w1, w2) =
 """
 ########################################################################
 def wordle_hint(w1, w2):
-    raise NotImplementedError
+    def wordle_loop(wx, wy):
+        in_x = set(wx)
+        rtn_set = []
+        
+        for i in range(len(wy)):
+            if wx[i] == wy[i]:
+                rtn_set.append((1, wy[i]))
+            elif wy[i] in in_x:
+                rtn_set.append((2, wy[i]))
+            else:
+                rtn_set.append((0, wy[i]))
+       
+        return rtn_set
+
+    return wordle_loop(w1, w2)
+             
+                             
+                 
 ########################################################################

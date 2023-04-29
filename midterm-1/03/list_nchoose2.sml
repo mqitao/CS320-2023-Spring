@@ -45,7 +45,7 @@ fun list_nchoose(xs: int list): (int * int) list list =
 
 fun
 list_nchoose2(xs: int list): (int * int) list =
-   list_reduce_left(list_nchoose(xs), [], fn(r, x)=> if r = nil then r else r @ x)    
+   list_reduce_left(list_nchoose(xs), [], fn(r, x)=> if x = nil then r else r @ x)    
 
 
 (* end of [CS320-2023-Spring-midterm1-list_nchoose2.sml] *)

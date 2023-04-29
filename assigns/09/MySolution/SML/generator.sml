@@ -35,16 +35,13 @@ callcc
 (fn cc =>
  (cret := cc; throw (!ret0) cres))
 
-(* ****** ****** *)
+(* ****** type
+'a generator =
+'a cont ref * unit cont ref****** *)
 
 fun
 generator_make_fun
-(
-gfun:
-('a
-  cont ref
-* unit
-  cont ref) -> 'a): 'a generator =
+(gfun:('a  cont ref* unit cont ref) -> 'a): 'a generator =
 let
   val ret0 = ref(Unsafe.cast(NONE))
   val cret = ref(Unsafe.cast(NONE))
@@ -52,7 +49,7 @@ in
   callcc
   (fn cc0 =>
    (callcc(fn cc1 =>
-    (cret := cc1; throw cc0 ())); gfun(ret0, cret); ()));
+       (cret := cc1; throw cc0 ())); gfun(ret0, cret); ()));
   (ret0, cret)
 end
 
